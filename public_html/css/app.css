@@ -1,0 +1,13 @@
+html {
+  background: white;
+  font: 16px Arial;
+}
+
+Excel.table {
+  border: 1px solid black;
+  margin: 20px;
+}
+
+Excel.th {
+  text-align: left;
+}
