@@ -19,16 +19,16 @@ Excel.th {
   text-align: left;
 }
 
-table {
+Excel.table {
   border: 1px solid black;
   margin: 20px;
 }
 
-.toolbar {
+Excel.toolbar {
   margin-left: 20px;
 }
 
-.toolbar a, .toolbar button { /* thanks css3buttongenerator.com! */
+Excel.toolbar a, Excel.toolbar button { /* thanks css3buttongenerator.com! */
   background: #3498db;
   background-image: linear-gradient(to bottom, #3498db, #2980b9);
   border-radius: 28px;
@@ -41,7 +41,7 @@ table {
   margin-right: 5px;
 }
 
-.toolbar a:hover, .toolbar button:hover {
+Excel.toolbar a:hover, Excel.toolbar button:hover {
   background: #3cb0fd;
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
