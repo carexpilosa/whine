@@ -229,7 +229,8 @@ var Excel = React.createClass({
         </div>
       );
     }
-  }, this
+  //}, this
+  }
 );
 
 export default Excel;
