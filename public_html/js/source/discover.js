@@ -7,11 +7,15 @@ import Button from './components/Button';
 
 ReactDOM.render(
   <div style={ {padding: '20px'} }>
-    <h1>Komponentent entdecken</h1>
-    
+    <h1>Komponenten entdecken</h1>
       <h2>Logo</h2>
       <div style={{display: 'inline-block', background: 'purple'}}>
         <Logo />
+      </div>
+
+      <h2>Buttons</h2>
+      <div>Button mit onClick: 
+        <Button onClick={() => alert('Aua')}>Klick mich</Button>
       </div>
       {/* weitere Komponenten */}
   </div>,
