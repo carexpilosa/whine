@@ -1,4 +1,4 @@
-.logo {
+.Logo {
   background-image: url('../../images/react-logo.svg');
   background-size: cover;
   display: inline-block;
@@ -6,3 +6,4 @@
   vertical-align: middle;
   width: 50px;
 }
+
