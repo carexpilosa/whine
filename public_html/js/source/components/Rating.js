@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {Component, PropTypes} from 'react';
 
 class Rating extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -10,30 +10,30 @@ class Rating extends Component {
       tmpRating: props.defaultValue
     };
   }
-  
+
   getValue() {
     return this.state.rating;
   }
-  
+
   setTemp(rating) {
     this.setState({tmpRating: rating});
   }
-  
+
   setRating(rating) { //onClick
     this.setState({
       tmpRating: rating,
       rating: rating
     });
   }
-  
+
   reset() {
     this.setTemp(this.state.rating);
   }
-  
+
   componentWillReceiveProps(nextProps) { //auf Änderungen von außen reagieren
     this.setRating(nextProps.defaultValue);
   }
-  
+
   render () {
     const stars = [];
     for (let i = 1; i <= this.props.max; i++) {

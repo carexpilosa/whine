@@ -5,11 +5,11 @@ class Logo extends React.Component {
   someMethod() {
     //nix
   }
-  
+
   another() {//
     //bla
   }
-  
+
   render() {
     return <div className="Logo" />;
   }

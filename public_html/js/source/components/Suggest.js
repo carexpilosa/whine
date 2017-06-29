@@ -5,7 +5,7 @@ class Suggest extends Component {
     super(props);
     this.state = {value: props.defaultValue};
   }
-  
+
   getValue() {
     return this.state.value;
   }
