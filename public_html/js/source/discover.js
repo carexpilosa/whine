@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Logo from './components/Logo';
 import Button from './components/Button';
 import Suggest from './components/Suggest';
+import Rating from './components/Rating';
 
 ReactDOM.render(
   <div style={ {padding: '20px'} }>
@@ -29,6 +30,12 @@ ReactDOM.render(
       <div>
         <Suggest options={['eins', 'zwei', 'dro', 'dreißig']} />
       </div>
+      
+      <h2>Rating</h2>
+      <div>Kein initialer Wert: <Rating /></div>
+      <div>Initialer Wert 4: <Rating defaultValue={4} /></div>
+      <div>Bis zu 11: <Rating max={11} /></div>
+      <div>Schreibgeschützt (3): <Rating readonly={true} defaultValue={3} /></div>
       {/* weitere Komponenten */}
   </div>,
   document.getElementById('pad')
