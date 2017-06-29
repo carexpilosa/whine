@@ -9,7 +9,7 @@ class Suggest extends Component {
   getValue() {
     return this.state.value;
   }
-  
+
   render () {
     const randomid = Math.random().toString(16).substring(2);
     return (

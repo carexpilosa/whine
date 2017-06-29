@@ -20,7 +20,7 @@
 .Rating .RatingOn:before {
    color: gold;
    content: "\2605";
-   left: 0; 
+   left: 0;
    padding: 1px;
    position: absolute;
 }

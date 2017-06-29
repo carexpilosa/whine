@@ -16,7 +16,7 @@ ReactDOM.render(
       </div>
 
       <h2>Buttons</h2>
-      <div>Button mit onClick: 
+      <div>Button mit onClick:
         <Button onClick={() => alert('Aua')}>Klick mich</Button>
       </div>
       <div>Ein Link:
@@ -25,12 +25,12 @@ ReactDOM.render(
       <div>Eigener Klassenname:
         <Button className="custom">Ich mache nichts</Button>
       </div>
-      
+
       <h2>Suggest</h2>
       <div>
         <Suggest options={['eins', 'zwei', 'dro', 'dreißig']} />
       </div>
-      
+
       <h2>Rating</h2>
       <div>Kein initialer Wert: <Rating /></div>
       <div>Initialer Wert 4: <Rating defaultValue={4} /></div>
