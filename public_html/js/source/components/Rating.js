@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class Rating extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -69,7 +69,7 @@ class Rating extends Component {
 
 Rating.propTypes = {
   defaultValue: PropTypes.number,
-  readonly: PropTypes.boole,
+  readonly: PropTypes.bool,
   max: PropTypes.number
 };
 
