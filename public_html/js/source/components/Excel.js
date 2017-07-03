@@ -94,7 +94,7 @@ class Excel extends React.Component {
     }
     return (
       <tr onChange={this._search}>
-        { //js start
+        {
           this.props.headers.map(function(_ignore, idx) {
             return (<td key={idx}>
               <input type="text" data-idx={idx} />
@@ -171,7 +171,7 @@ class Excel extends React.Component {
       <table>
         <thead onClick={this._sort}>
           <tr>
-            { //js start
+            {
               this.props.headers.map(function(title, idx) {
                 if(this.state.sortby === idx) {
                   title += this.state.descending ? '\u2191' : '\u2193';
@@ -183,11 +183,11 @@ class Excel extends React.Component {
         </thead>
         <tbody onDoubleClick={this._showEditor}>
           {this._renderSearch()}
-          { //js start
+          {
             this.state.data.map(function (row, rowidx) {
               return (
                 <tr key={rowidx}>
-                  { //js start
+                  {
                     row.map(function (cell, idx) {
                       var content = cell;
                       var edit = this.state.edit;
