@@ -9,14 +9,14 @@ class FormInput extends Component {
       ? this.refs.input.value
       : this.refs.input.getValue();
   }
-  
+
   render() {
     const common = { //Eigenschaften für alle
       id: this.props.id,
       ref: 'input',
       defaultValue: this.props.defaultValue
     };
-    
+
     switch (this.props.type) {
       case 'year':
         return ( <input
