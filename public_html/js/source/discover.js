@@ -7,6 +7,7 @@ import Button from './components/Button';
 import Suggest from './components/Suggest';
 import Rating from './components/Rating';
 import FormInput from './components/FormInput';
+import Form from './components/Form';
 
 ReactDOM.render(
   <div style={ {padding: '20px'} }>
@@ -70,7 +71,12 @@ ReactDOM.render(
         <td><FormInput type="text" /></td>
       </tr>
     </tbody></table>
-    
+    <Form
+      fields={[
+        {label: 'Bewertung', type: 'rating', id: 'rateme'},
+        {label: 'Grüße', id: 'freetext'}
+      ]}
+      initialData ={ {rateme: 4, freetext: 'Hallo'} } />
     {/* weitere Komponenten */}
     
   </div>,
