@@ -7,7 +7,9 @@ import Button from './components/Button';
 import Suggest from './components/Suggest';
 import Rating from './components/Rating';
 import FormInput from './components/FormInput';
+import Actions from './components/Actions';
 import Form from './components/Form';
+import Dialog from './components/Dialog';
 
 ReactDOM.render(
   <div style={ {padding: '20px'} }>
@@ -40,7 +42,7 @@ ReactDOM.render(
     <div>Bis zu 11: <Rating max={11} /></div>
     <div>Schreibgeschützt (3): <Rating readonly={true} defaultValue={3} /></div>
     
-    <h2>Form inputs</h2>
+    {/*<h2>Form inputs</h2>
     <table><tbody>
       <tr>
         <td>Klassisch</td>
@@ -76,7 +78,24 @@ ReactDOM.render(
         {label: 'Bewertung', type: 'rating', id: 'rateme'},
         {label: 'Grüße', id: 'freetext'}
       ]}
-      initialData ={ {rateme: 4, freetext: 'Hallo'} } />
+      initialData ={ {rateme: 4, freetext: 'Hallo'} } />*/}
+    
+    <h2>Actions</h2>
+    <div><Actions onAction={function (type) {alert(type)} } /></div>
+    
+    <Dialog
+      header="Standardbeispiel"
+      onAction={type => alert(type)}>
+    </Dialog>
+    
+    <Dialog
+      header="keine Abbruch, eigener Button"
+      hasCancel={false}
+      confirmLabel="Was auch immer"
+      onAction={type => alert(type)}>
+      <Button>Ein Button</Button>
+    </Dialog>
+      
     {/* weitere Komponenten */}
     
   </div>,
