@@ -1,7 +1,8 @@
 'use strict';
 
 var headers = localStorage.getItem('headers');
-var data = localStorage.getItem('data');
+//var data = localStorage.getItem('data');
+var data = [];
 
 if (! headers) {
   headers = ['Titel', 'Jahr', 'Bewertung', 'Kommentar'];

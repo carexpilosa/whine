@@ -7,22 +7,20 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames'
 
-class Excel extends React.Component {
+class Excel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: this.props.initialData,
-      sortby: null,
+      sortby: null, // schema.id
       descending: false,
-      edit: null,
-      dialog: null
+      edit: null, // [row index, schema.id],
+      dialog: null, // {type, idx}
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      data: nextProps.initialData,
-    });
+    this.setState({data: nextProps.initialData});
   }
 
   _fireDataChange(data) {
@@ -32,26 +30,24 @@ class Excel extends React.Component {
   _sort(key) {
     let data = Array.from(this.state.data);
     const descending = this.state.sortby === key && !this.state.descending;
-    data.sort(function (a, b) {
-      return descending ?
-        (a[key] < b[key] ? 1 : -1) :
-        (a[key] > b[key] ? 1 : -1);
-    });
+    data.sort((a, b) =>
+      descending
+        ? (a[key] < b[key] ? 1 : -1)
+        : (a[key] > b[key] ? 1 : -1)
+    );
     this.setState({
       data: data,
       sortby: key,
-      descending: descending
+      descending: descending,
     });
     this._fireDataChange(data);
   }
 
   _showEditor(e) {
-    this.setState({
-      edit: {
-        row: parseInt(e.target.dataset.row, 10),
-        cell: e.target.cellIndex
-      }
-    });
+    this.setState({edit: {
+      row: parseInt(e.target.dataset.row, 10),
+      key: e.target.dataset.key,
+    }});
   }
 
   _save(e) {
@@ -61,7 +57,7 @@ class Excel extends React.Component {
     data[this.state.edit.row][this.state.edit.key] = value;
     this.setState({
       edit: null,
-      data: data
+      data: data,
     });
     this._fireDataChange(data);
   }
@@ -79,12 +75,12 @@ class Excel extends React.Component {
     data.splice(this.state.dialog.idx, 1);
     this.setState({
       dialog: null,
-      data: data
+      data: data,
     });
     this._fireDataChange(data);
   }
 
-  _closenDialog() {
+  _closeDialog() {
     this.setState({dialog: null});
   }
 
@@ -97,7 +93,7 @@ class Excel extends React.Component {
     data[this.state.dialog.idx] = this.refs.form.getData();
     this.setState({
       dialog: null,
-      data: data
+      data: data,
     });
     this._fireDataChange(data);
   }
@@ -118,7 +114,7 @@ class Excel extends React.Component {
     switch (this.state.dialog.type) {
       case 'delete':
         return this._renderDeleteDialog();
-      case' info':
+      case 'info':
         return this._renderFormDialog(true);
       case 'edit':
         return this._renderFormDialog();
@@ -129,7 +125,7 @@ class Excel extends React.Component {
 
   _renderDeleteDialog() {
     const first = this.state.data[this.state.dialog.idx];
-    const nameguess = first[Object.keys(first[0])];
+    const nameguess = first[Object.keys(first)[0]];
     return (
       <Dialog
         modal={true}
@@ -139,10 +135,10 @@ class Excel extends React.Component {
       >
         {`Wollen Sie "${nameguess}" wirklich löschen?`}
       </Dialog>
-    )
+    );
   }
 
-  _renderFormDialog() {
+  _renderFormDialog(readonly) {
     return (
       <Dialog
         modal={true}
@@ -163,84 +159,73 @@ class Excel extends React.Component {
   _renderTable() {
     return (
       <table>
-        <thead onClick={this._sort}>
-          <tr>
-            {
-              this.props.schema.map(item => {
-                if(!item.show) {
-                  return null;
-                }
-                let title = item.label;
-                if(this.state.sortby === item.id) {
-                  title += this.state.descending ? '\u2191' : '\u2193';
-                }
-                return (
-                  <th
-                    className={`schema-${item.id}`}
-                    key={item.id}
-                    onClick= {this._sort.bind(this, item.id)}
-                  >
-                    {title}
-                  </th>
-                )
-              }, this)
-            }
-          <th className="ExcelNotSortable">Aktionen</th>
-          </tr>
-        </thead>
-        <tbody onDoubleClick={this._showEditor.bind(this)}>
-          {
-            this.state.data.map(function (row, rowidx) {
+        <thead>
+          <tr>{
+            this.props.schema.map(item => {
+              if (!item.show) {
+                return null;
+              }
+              let title = item.label;
+              if (this.state.sortby === item.id) {
+                title += this.state.descending ? ' \u2191' : ' \u2193';
+              }
               return (
-                <tr key={rowidx}>
-                  {
-                    Object.keys(row).map(function(cell, idx) {
-                      const schema = this.props.schema[idx];
-                      if (!schema || !schema.show) {
-                        return null;
-                      }
-                      const isRating = schema.type === 'rating';
-                      const edit = this.state.edit;
-                      let content = row[cell];
-                      if(isRating && edit && edit.row === rowidx
-                        && edit.key === schema.id) {
-                        content = (
-                          <form onSubmit={this._save.bind(this)}>
-                            <FormInput ref="input" {...schema}
-                              defaultValue={content} />
-                          </form>
-                        );
-                      } else if (isRating) {
-                        content = (
-                          <Rating readonly={true}
-                            defaultValue={Number(content)} />
-                        );
-                      }
-                      return (
-                        <td
-                          className={classNames({
-                            [`schema-${schema.id}`]: true,
-                            'ExcelEditable': !isRating,
-                            'ExcelDataLeft': schema.align === 'left',
-                            'ExcelDataRight': schema.align === 'right',
-                            'ExcelDataCenter': schema.align !== 'left'
-                              &&  schema.align !== 'right'
-                          })}
-                          key={idx}
-                          data-row={rowidx}
-                          data-key={schema.id}>
-                          {content}
-                        </td>
-                      );
-                    }, this)
-                  }
-                  <td className="ExcelDataCenter">
-                    <Actions onAction={this._actionClick.bind(this, rowidx)} />
-                  </td>
-                </tr>
+                <th
+                  className={`schema-${item.id}`}
+                  key={item.id}
+                  onClick={this._sort.bind(this, item.id)}
+                >
+                  {title}
+                </th>
               );
             }, this)
           }
+          <th className="ExcelNotSortable">Actions</th>
+        </tr>
+      </thead>
+      <tbody onDoubleClick={this._showEditor.bind(this)}>
+        {this.state.data.map((row, rowidx) => {
+            return (
+              <tr key={rowidx}>{
+                Object.keys(row).map((cell, idx) => {
+                  const schema = this.props.schema[idx];
+                  if (!schema || !schema.show) {
+                    return null;
+                  }
+                  const isRating = schema.type === 'rating';
+                  const edit = this.state.edit;
+                  let content = row[cell];
+                  if (!isRating && edit && edit.row === rowidx && edit.key === schema.id) {
+                    content = (
+                      <form onSubmit={this._save.bind(this)}>
+                        <FormInput ref="input" {...schema} defaultValue={content} />
+                      </form>
+                    );
+                  } else if (isRating) {
+                    content = <Rating readonly={true} defaultValue={Number(content)} />;
+                  }
+                  return (
+                    <td
+                      className={classNames({
+                        [`schema-${schema.id}`]: true,
+                        'ExcelEditable': !isRating,
+                        'ExcelDataLeft': schema.align === 'left',
+                        'ExcelDataRight': schema.align === 'right',
+                        'ExcelDataCenter': schema.align !== 'left' && schema.align !== 'right',
+                      })}
+                      key={idx}
+                      data-row={rowidx}
+                      data-key={schema.id}>
+                      {content}
+                    </td>
+                  );
+                }, this)}
+                <td className="ExcelDataCenter">
+                  <Actions onAction={this._actionClick.bind(this, rowidx)} />
+                </td>
+              </tr>
+            );
+          }, this)}
         </tbody>
       </table>
     );
@@ -254,7 +239,7 @@ Excel.propTypes = {
   initialData: PropTypes.arrayOf(
     PropTypes.object
   ),
-  onDataChange: PropTypes.func
+  onDataChange: PropTypes.func,
 };
 
-export default Excel;
+export default Excel
