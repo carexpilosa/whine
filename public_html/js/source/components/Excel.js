@@ -3,9 +3,9 @@ import Dialog from './Dialog';
 import Form from './Form';
 import FormInput from './FormInput';
 import Rating from './Rating';
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames'
+import React, {Component, PropTypes} from 'react';
+//import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class Excel extends Component {
   constructor(props) {
@@ -119,7 +119,7 @@ class Excel extends Component {
       case 'edit':
         return this._renderFormDialog();
       default:
-        throw Error(`Unerwarteter Dialogtype ${this.state.dialog.type}`);
+        throw Error(`Unexpected dialog type ${this.state.dialog.type}`);
     }
   }
 
@@ -129,11 +129,11 @@ class Excel extends Component {
     return (
       <Dialog
         modal={true}
-        header="Löschen bestätigen"
-        confirmLabel="Löschen"
+        header="Confirm deletion"
+        confirmLabel="Delete"
         onAction={this._deleteConfirmationClick.bind(this)}
       >
-        {`Wollen Sie "${nameguess}" wirklich löschen?`}
+        {`Are you sure you want to delete "${nameguess}"?`}
       </Dialog>
     );
   }
@@ -142,8 +142,8 @@ class Excel extends Component {
     return (
       <Dialog
         modal={true}
-        header={readonly ? 'Info' : 'Bearbeiten'}
-        confirmLabel={readonly ? 'Ok' : 'Sichern'}
+        header={readonly ? 'Item info' : 'Edit item'}
+        confirmLabel={readonly ? 'ok' : 'Save'}
         hasCancel={!readonly}
         onAction={this._saveDataDialog.bind(this)}
       >
