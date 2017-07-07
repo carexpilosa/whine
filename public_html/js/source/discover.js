@@ -2,20 +2,21 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Logo from './components/Logo';
+/*import Logo from './components/Logo';
 import Button from './components/Button';
 import Suggest from './components/Suggest';
 import Rating from './components/Rating';
 import FormInput from './components/FormInput';
 import Actions from './components/Actions';
 import Form from './components/Form';
-import Dialog from './components/Dialog';
+import Dialog from './components/Dialog';*/
+import Multiselect from './components/Multiselect';
 
 ReactDOM.render(
   <div style={ {padding: '20px'} }>
     <h1>Komponenten entdecken</h1>
     
-    <h2>Logo</h2>
+    {/*<h2>Logo</h2>
     <div style={{display: 'inline-block', background: 'purple'}}>
       <Logo />
     </div>
@@ -42,7 +43,7 @@ ReactDOM.render(
     <div>Bis zu 11: <Rating max={11} /></div>
     <div>Schreibgeschützt (3): <Rating readonly={true} defaultValue={3} /></div>
     
-    {/*<h2>Form inputs</h2>
+    <h2>Form inputs</h2>
     <table><tbody>
       <tr>
         <td>Klassisch</td>
@@ -78,7 +79,7 @@ ReactDOM.render(
         {label: 'Bewertung', type: 'rating', id: 'rateme'},
         {label: 'Grüße', id: 'freetext'}
       ]}
-      initialData ={ {rateme: 4, freetext: 'Hallo'} } />*/}
+      initialData ={ {rateme: 4, freetext: 'Hallo'} } />
     
     <h2>Actions</h2>
     <div><Actions onAction={function (type) {alert(type)} } /></div>
@@ -94,7 +95,9 @@ ReactDOM.render(
       confirmLabel="Was auch immer"
       onAction={type => alert(type)}>
       <Button>Ein Button</Button>
-    </Dialog>
+    </Dialog>*/}
+  
+    <Multiselect />
       
     {/* weitere Komponenten */}
     
