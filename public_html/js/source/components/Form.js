@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 class Form extends Component {
   getData() {
     let data = {};
+    let that = this;
     this.props.fields.forEach(function(field) {
-      data[field.id] = this.refs[field.id].getValue();
+      data[field.id] = that.refs[field.id].getValue();
     });
     return data;
   }

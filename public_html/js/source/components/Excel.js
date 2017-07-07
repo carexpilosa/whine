@@ -3,8 +3,8 @@ import Dialog from './Dialog';
 import Form from './Form';
 import FormInput from './FormInput';
 import Rating from './Rating';
-import React, {Component, PropTypes} from 'react';
-//import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 class Excel extends Component {

@@ -3,7 +3,7 @@
 import Logo from './components/Logo';
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import Whinepad from './components/Whinepad';
+import Whinepad from './components/Whinepad';
 import schema from './schema';
 
 let data = JSON.parse(localStorage.getItem('data'));
@@ -20,7 +20,7 @@ ReactDOM.render(
     <div className="app-header">
       <Logo/> Welcome to Whinepad!
     </div>
-    {/*<Whinepad schema={schema} initialData={data} />*/}
+    <Whinepad schema={schema} initialData={data} />
   </div>,
   document.getElementById('pad')
 );

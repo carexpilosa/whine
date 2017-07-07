@@ -28,6 +28,7 @@ class Dialog extends Component {
             }
             <Button onClick={this.props.onAction.bind(this,
                 this.props.hasCancel ? 'confirm' : 'dismiss')}>
+                {this.props.confirmLabel}
             </Button>
           </div>
         </div>
